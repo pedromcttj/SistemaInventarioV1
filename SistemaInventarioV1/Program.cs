@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SistemaInventarioAccesoDatos.Repositorio;
+using SistemaInventarioAccesoDatos.Repositorio.IRepositorio;
 using SistemaInventarioV1.AccesoDatos.Data;
 
 
@@ -15,6 +17,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();//Se agrega AddRazorRuntimeCompilation , para que al refrezcar el navegador se visualice los cambios
 
+//se agrega una sola vez y pueda seguirse usando las veces que sean.
+builder.Services.AddScoped<IunidadTrabajo, UnidadTrabajo>();//se agrega para que se pueda agregar o llamar  en cualquier controlador
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
