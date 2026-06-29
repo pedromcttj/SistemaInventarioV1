@@ -13,6 +13,8 @@ namespace SistemaInventarioAccesoDatos.Repositorio.IRepositorio
 
         IProductoRepositorio Producto { get; }
 
+        IUsuarioAplicacionRepositorio UsuarioAplicacion { get; }
+        
         Task Guardar();
     }
 }
