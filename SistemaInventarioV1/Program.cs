@@ -3,7 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using SistemaInventarioAccesoDatos.Repositorio;
 using SistemaInventarioAccesoDatos.Repositorio.IRepositorio;
 using SistemaInventarioV1.AccesoDatos.Data;
-
+//using SistemaInventarioV1.Data;
+using SistemaInventarioAccesoDatos.Data;
+using SistemaInventarioUtilidades;
+using Microsoft.AspNetCore.Identity.UI.Services; //se agrego para el tema dek Applicationuser
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,12 +16,27 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+//builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddDefaultTokenProviders()
+//    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddIdentity<SistemaInventarioAccesoDatos.Data.ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false) //despues regresarlo  a True
+    .AddDefaultTokenProviders()
+    .AddEntityFrameworkStores<SistemaInventarioV1.AccesoDatos.Data.ApplicationDbContext>();
+
+
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();//Se agrega AddRazorRuntimeCompilation , para que al refrezcar el navegador se visualice los cambios
 
+builder.Services.AddRazorPages();
+
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
 //se agrega una sola vez y pueda seguirse usando las veces que sean.
 builder.Services.AddScoped<IunidadTrabajo, UnidadTrabajo>();//se agrega para que se pueda agregar o llamar  en cualquier controlador
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

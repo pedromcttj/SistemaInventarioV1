@@ -2,10 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using SistemaInventarioModelos;
 using System.Reflection;
+using SistemaInventarioAccesoDatos.Data; //se agrego para el tema dek Applicationuser
 
 namespace SistemaInventarioV1.AccesoDatos.Data
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext(options)
+     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    : IdentityDbContext<ApplicationUser>(options)
+    //ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext(options)
     {
         //Se crea el DbSet , con el nombre de nuestro modelo <> seguido con el Nombre que aparezca en la BD
         public DbSet<Bodega> Bodegas { get; set; }
