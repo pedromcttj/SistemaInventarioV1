@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-SistemaInventarioV1-b6456d3a-1498-4b9e-a47a-12676cf38343</UserSecretsId>
 	  <NuGetAudit>false</NuGetAudit>
+	  <NoWarn>$(NoWarn);NU1510</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

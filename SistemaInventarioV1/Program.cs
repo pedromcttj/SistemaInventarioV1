@@ -24,10 +24,21 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddIdentity<SistemaInventarioAccesoDatos.Data.ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false) //despues regresarlo  a True
+    .AddErrorDescriber<ErrorDescriber>()
     .AddDefaultTokenProviders()
     .AddEntityFrameworkStores<SistemaInventarioV1.AccesoDatos.Data.ApplicationDbContext>();
 
 
+builder.Services.Configure<IdentityOptions>(options => //reglas para password
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 1;
+
+});
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();//Se agrega AddRazorRuntimeCompilation , para que al refrezcar el navegador se visualice los cambios
 
 builder.Services.AddRazorPages();
